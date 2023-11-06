@@ -4,7 +4,7 @@
   padding: 10px 20px;
   display: flex;
   align-items: center;
-  height: 6vh;
+  height: 8vh;
   display: flex;
 }
 
@@ -18,7 +18,7 @@
 }
 
 img{
-  height: 200px;
+  height: 300px;
 }
 
 

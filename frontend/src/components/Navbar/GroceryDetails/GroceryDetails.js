@@ -1,7 +1,7 @@
 import "./GroceryDetails.css";
 const GroceryDetail = ({ grocery }) => {
   return (
-    <div className="Groceries">
+    <div>
       <div className="GroceryCard">
         <img
           src={grocery.StoreImage}
@@ -11,7 +11,7 @@ const GroceryDetail = ({ grocery }) => {
 
         <div className="CardSecond">
           <div className="GroceryInformation">
-            <h4>{grocery.StoreName}</h4>
+            <h2>{grocery.StoreName}</h2>
             <p>
               <strong>{grocery.Location}</strong>
             </p>

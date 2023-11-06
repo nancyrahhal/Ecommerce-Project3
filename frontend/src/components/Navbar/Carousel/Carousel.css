@@ -1,0 +1,21 @@
+.Backgroundimage {
+    background-image: url("https://www.bigwhite.com/sites/default/files/2016-07/Winter-Services-Groceries-Food-2000x800px.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 92vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+
+  .Backgroundimage2 {
+    background-image: url("https://cdn.grabon.in/gograbon/images/web-images/uploads/1618548899692/groceries-offers.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 92vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
