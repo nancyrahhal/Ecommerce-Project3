@@ -1,13 +1,12 @@
-// Home.js
 import { useEffect, useState } from "react";
-// import GroceryDetail from "../../components/Navbar/GroceryDetails/GroceryDetails";
 import "./Home.css";
 import GroceryDetail from "../../components/Navbar/GroceryDetails/GroceryDetails";
 import Search from "../../components/Navbar/SearchBar/SearchBar";
-import Carousel from "../../components/Navbar/Carousel/Carousel"
+import Carousel from "../../components/Navbar/Carousel/Carousel";
 
 const Home = () => {
   const [groceries, setGroceries] = useState([]);
+  const [filteredGroceries, setFilteredGroceries] = useState([]);
 
   useEffect(() => {
     const fetchGroceries = async () => {
@@ -17,8 +16,8 @@ const Home = () => {
           throw new Error("Network response was not ok");
         }
         const json = await response.json();
-        console.log(json);
         setGroceries(json);
+        setFilteredGroceries(json); // Set filtered groceries initially to all groceries
       } catch (error) {
         console.error("Error fetching groceries:", error);
       }
@@ -28,15 +27,16 @@ const Home = () => {
 
   return (
     <div className="home">
-      
-<Carousel />
+      <Carousel />
+      <p className="findgrocery">Find Your Grocery</p>
+      <Search
+        groceries={groceries}
+        setFilteredGroceries={setFilteredGroceries}
+      />
 
-<p className="findgrocery">Find Your Grocery</p>
-
-<Search/>
       <div className="Groceries">
-        {groceries &&
-          groceries.map((grocery, index) => (
+        {filteredGroceries &&
+          filteredGroceries.map((grocery) => (
             <GroceryDetail grocery={grocery} key={grocery._id} />
           ))}
       </div>

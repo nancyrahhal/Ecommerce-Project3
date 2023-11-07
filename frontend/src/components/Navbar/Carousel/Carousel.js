@@ -1,27 +1,55 @@
-import { Navigation,Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import "./Carousel.css";    
+import React, { useState, useEffect } from 'react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; // Import arrow icons from react-icons/fa
 
+import './Carousel.css'; // Import the CSS file
 
+const ImageCarousel = () => {
+  const images = [
+    'https://dealroup.com/wp-content/uploads/2020/05/Grocery-Offers.jpg',
+    'https://www.bigwhite.com/sites/default/files/2016-07/Winter-Services-Groceries-Food-2000x800px.jpg',
+    'https://www.zopmart.in/wp-content/uploads/2020/11/grocery-shopping-discount-banner.jpg',
+  ];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-const Carousel = () => {
+  const goToNextSlide = () => {
+    console.log('Next slide clicked');
+    setCurrentIndex((currentIndex + 1) % images.length);
+  };
+  
+  const goToPrevSlide = () => {
+    console.log('Previous slide clicked');
+    setCurrentIndex((currentIndex - 1 + images.length) % images.length);
+  };
+
+  const handleSeeAll = () => {
+    // Add your logic for handling the "See All" action here
+    console.log('See All clicked');
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      goToNextSlide();
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [currentIndex]);
+
   return (
-    <Swiper
-      slidesPerView={1}
-      navigation={true} // Enable navigation
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
-    >
-      <SwiperSlide>
-        <div className="Backgroundimage"></div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className="Backgroundimage2"></div>
-      </SwiperSlide>
-    </Swiper>
+    <div className="image-carousel">
+      <button className="see-all-button" onClick={handleSeeAll}>See All</button>
+      <button className="carousel-button left-button" onClick={goToPrevSlide}>
+        <FaChevronLeft />
+      </button>
+      <div
+        className="carousel-image"
+        style={{ backgroundImage: `url(${images[currentIndex]})` }}
+        alt={`Slide ${currentIndex + 1}`}
+      />
+      <button className="carousel-button right-button" onClick={goToNextSlide}>
+        <FaChevronRight />
+      </button>
+    </div>
   );
 };
 
-export default Carousel;
+export default ImageCarousel;

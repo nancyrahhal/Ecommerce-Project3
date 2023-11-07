@@ -1,13 +1,15 @@
 import "./GroceryDetails.css";
+import { Link } from "react-router-dom";
+
 const GroceryDetail = ({ grocery }) => {
+  const handleViewClick = () => {
+
+  };
+
   return (
     <div>
       <div className="GroceryCard">
-        <img
-          src={grocery.StoreImage}
-          alt={grocery.StoreName}
-          className="GroceryImages  "
-        />
+        <img src={grocery.StoreImage} alt={grocery.StoreName} className="GroceryImages" />
 
         <div className="CardSecond">
           <div className="GroceryInformation">
@@ -18,7 +20,12 @@ const GroceryDetail = ({ grocery }) => {
           </div>
 
           <div>
-            <button class="button">View</button>
+          <Link to="/StoreDetails" className="link">
+            <button className="button" >
+            View
+            </button>
+     </Link>
+       
           </div>
         </div>
       </div>

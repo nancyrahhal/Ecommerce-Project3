@@ -1,21 +1,52 @@
-.Backgroundimage {
-    background-image: url("https://www.bigwhite.com/sites/default/files/2016-07/Winter-Services-Groceries-Food-2000x800px.jpg");
-    background-size: cover;
-    background-position: center;
-    height: 92vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
+/* ImageCarousel.css */
+.image-carousel {
+  position: relative;
+  height: 92vh;
+  width: 100%;
+  z-index: -1;
+  background-size: cover;
+}
 
-  .Backgroundimage2 {
-    background-image: url("https://cdn.grabon.in/gograbon/images/web-images/uploads/1618548899692/groceries-offers.jpg");
-    background-size: cover;
-    background-position: center;
-    height: 92vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
+.carousel-button,
+.see-all-button {
+  color: green;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+}
+
+.left-button {
+  left: 2%;
+  display: none;
+}
+
+.right-button {
+  right: 2%;
+  display: none;
+}
+
+.see-all-button {
+  right: 2%;
+  background-color: #7cb334;
+  width: 140px;
+  height: 80px;
+  border-radius: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+}
+
+.carousel-image {
+  height: 92vh;
+  width: 100%;
+  background-size: cover;
+  object-fit: cover;
+}
+
+
