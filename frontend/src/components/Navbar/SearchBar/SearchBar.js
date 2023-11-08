@@ -16,7 +16,7 @@ const Search = ({ groceries, setFilteredGroceries }) => {
 
   return (
     <div className="search">
-      <input
+      <input placeholder='find your store'
         className="searchInput"
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}

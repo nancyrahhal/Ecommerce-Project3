@@ -1,9 +1,7 @@
-/* ImageCarousel.css */
 .image-carousel {
   position: relative;
   height: 92vh;
   width: 100%;
-  z-index: -1;
   background-size: cover;
 }
 
@@ -15,25 +13,28 @@
   border: none;
   cursor: pointer;
   position: absolute;
-  top: 60%;
-  transform: translateY(-50%);
 }
 
 .left-button {
   left: 2%;
+  top: 50%;
+  transform: translateY(-50%);
   display: none;
 }
 
 .right-button {
   right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
   display: none;
 }
 
 .see-all-button {
   right: 2%;
+  bottom: 5%;
   background-color: #7cb334;
   width: 140px;
-  height: 80px;
+  height: 40px;
   border-radius: 300px;
   display: flex;
   align-items: center;
@@ -46,7 +47,20 @@
   height: 92vh;
   width: 100%;
   background-size: cover;
-  object-fit: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
+/* Media Query for smaller screens */
+@media only screen and (max-width: 768px) {
+  .carousel-button,
+  .see-all-button {
+    font-size: 18px;
+  }
 
+  .see-all-button {
+    width: 100px;
+    height: 60px;
+    font-size: 14px;
+  }
+}

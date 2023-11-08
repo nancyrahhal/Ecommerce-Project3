@@ -20,12 +20,10 @@
     display: flex;
 justify-content: space-around;
 margin: auto;
+width: 95%;
 }
 
 
-.category{
-    background-color: blue;
-}
 
 .productcard{
     height: 400px;
@@ -60,3 +58,24 @@ margin: auto;
 .detailsspan{
     margin-right: 20px;
 }
+
+
+.catimg{
+    height: 200px;
+}
+
+
+.storeimg2{
+    height: 90%;
+}
+
+.arrow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .arrow {
+    font-size: 30px; /* Adjust the size as needed */
+  }
+  
