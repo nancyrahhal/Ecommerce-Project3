@@ -10,6 +10,7 @@
 .secondnav {
   display: flex;
   margin-left: auto;
+  margin-right: 30px;
 }
 .secondnav .link + .link {
   margin-left: 70px;

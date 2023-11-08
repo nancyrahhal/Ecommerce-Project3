@@ -1,6 +1,6 @@
 .GroceryCard {
-  height: 350px;
-  width: 300px;
+  height: 400px;
+  width: 400px;
   background-color: #d9d9d9;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
@@ -10,14 +10,14 @@
 }
 
 .CardSecond {
-    display: flex;
-    justify-content: space-between;
-  }
+  display: flex;
+  justify-content: space-between;
+}
 
 .Groceries {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 100px;
+  display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+gap: 50px;
   width: 83%;
   margin: 0 auto;
 }
@@ -37,18 +37,22 @@
 }
 
 .button {
-    background-color: #7CB334;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 25px;
-    border-radius: 10px;
-    width: 120px;
-    height: 50px;
-    align-self: flex-start; /* Add this line to align the button to the left */
-    margin-top: 35px;
-    margin-right: 45px;
-    font-weight: bold;
-  }
+  background-color: #7cb334;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 25px;
+  border-radius: 10px;
+  width: 150px;
+  height: 70px;
+  align-self: flex-start; /* Add this line to align the button to the left */
+  margin-top: 35px;
+  margin-right: 45px;
+  font-weight: bold;
+  display: block;
+  height: fit-content;
+  width: fit-content;
+}
+

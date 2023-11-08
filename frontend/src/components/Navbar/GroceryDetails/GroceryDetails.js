@@ -2,30 +2,30 @@ import "./GroceryDetails.css";
 import { Link } from "react-router-dom";
 
 const GroceryDetail = ({ grocery }) => {
-  const handleViewClick = () => {
-
-  };
+  const { StoreImage, StoreName, Location } = grocery;
 
   return (
     <div>
       <div className="GroceryCard">
-        <img src={grocery.StoreImage} alt={grocery.StoreName} className="GroceryImages" />
-
+        <img src={StoreImage} alt={StoreName} className="GroceryImages" />
         <div className="CardSecond">
           <div className="GroceryInformation">
-            <h2>{grocery.StoreName}</h2>
+            <h2>{StoreName}</h2>
             <p>
-              <strong>{grocery.Location}</strong>
+              <strong>{Location}</strong>
             </p>
           </div>
 
           <div>
-          <Link to="/StoreDetails" className="link">
-            <button className="button" >
-            View
-            </button>
-     </Link>
-       
+            <Link
+              to={{
+                pathname: `/StoreDetails/${StoreName}`,
+              }}
+              className=" button"
+            >
+              {/* <button className="button"></button> */}
+              View
+            </Link>
           </div>
         </div>
       </div>
