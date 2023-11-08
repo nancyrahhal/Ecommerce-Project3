@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./StoreDetails.css"
-
+import fruits from  "../../../Images/strawberry.png"
+import vegetables from   "../../../Images/vegetable.png"
+import snack from   "../../../Images/snack.png"
+import canned from  "../../../Images/canned-food.png"
+import dairy from "../../../Images/dairy-products.png"
+import riceandpasta from "../../../Images/rice.png"
 const StoreDetails = (props) => {
   const [storeDetails, setStoreDetails] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -61,6 +66,7 @@ const StoreDetails = (props) => {
               <img src="https://bhimavaram.online/image/cache/catalog/banners/fruits_category_banner-200x200.jpg" onClick={() => toggleCategory(category)}>
                 
               </img>
+              <a href="https://www.flaticon.com/free-icons/strawberry" title="strawberry icons">Strawberry icons created by Freepik - Flaticon</a>
             </div>
           ))}
       </div>
