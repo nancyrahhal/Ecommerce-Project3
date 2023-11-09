@@ -23,7 +23,7 @@ const ImageCarousel = () => {
   };
 
   const handleSeeAll = () => {
-    // Add your logic for handling the "See All" action here
+    window.location.href = '/offers';
     console.log('See All clicked');
   };
 

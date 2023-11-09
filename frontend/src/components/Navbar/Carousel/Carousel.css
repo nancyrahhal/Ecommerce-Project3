@@ -3,6 +3,7 @@
   height: 92vh;
   width: 100%;
   background-size: cover;
+  background-size: contain;
 }
 
 .carousel-button,
