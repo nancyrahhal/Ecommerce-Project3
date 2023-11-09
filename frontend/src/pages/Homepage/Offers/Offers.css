@@ -56,10 +56,11 @@
   color: red;
   text-decoration: line-through;
   font-size: 20px;
+  padding-right: 20px;
 }
 
 .new-price {
-  font-size: 20px;
+  font-size: 20px;padding-left: 20px;
 }
 
 @media only screen and (max-width: 786px) {
