@@ -19,7 +19,7 @@ const StoreDetails = () => {
   const [startIndex, setStartIndex] = useState(0);
   const categoriesToShow = 4;
 
-  let params = useParams();
+  const params = useParams();
   console.log("params.storeName:", params.storeName);
 
   useEffect(() => {
@@ -92,8 +92,8 @@ const StoreDetails = () => {
   const categoriesArray = Array.isArray(storeDetails.categories)
     ? storeDetails.categories
     : storeDetails.categories
-      ? [storeDetails.categories]
-      : [];
+    ? [storeDetails.categories] // Ensure it's an array
+    : [];
 
   console.log("Categories array:", categoriesArray);
 
@@ -101,7 +101,11 @@ const StoreDetails = () => {
     <div>
       <div className="storedetails">
         <div className="detailsimage">
-          <img src={storeDetails.StoreImage} className="storeimg2" alt="Store" />
+          <img
+            src={storeDetails.StoreImage}
+            className="storeimg2"
+            alt="Store"
+          />
         </div>
         <div className="details">
           <p>
@@ -136,16 +140,18 @@ const StoreDetails = () => {
           <FaArrowAltCircleLeft className="arrow" />
         </div>
 
-        {categoriesArray.map((category) => (
-          <div key={category._id} className="category">
-            <img
-              className="catimg"
-              src={getCategoryImage(category.categoryName)}
-              alt={category.categoryName}
-              onClick={() => toggleCategory(category)}
-            />
-          </div>
-        ))}
+        {categoriesArray
+          .slice(startIndex, startIndex + categoriesToShow)
+          .map((category) => (
+            <div key={category._id} className="category">
+              <img
+                className="catimg"
+                src={getCategoryImage(category.categoryName)}
+                alt={category.categoryName}
+                onClick={() => toggleCategory(category)}
+              />
+            </div>
+          ))}
 
         <div className="arrow-container" onClick={handleNext}>
           <FaArrowAltCircleRight className="arrow" />
@@ -154,15 +160,18 @@ const StoreDetails = () => {
 
       <div className="products">
         {categoriesArray
-          .map((category) => category.products)
-          .flat()
+          .flatMap((category) => category.products || []) // Ensure products is an array
           .filter((product) =>
             selectedCategory ? product.category === selectedCategory : true
           )
           .map((product) => (
             <div key={product._id} className="product">
               <div className="productcard">
-                <img src={product.image} className="productimage" alt={product.productName} />
+                <img
+                  src={product.image}
+                  className="productimage"
+                  alt={product.productName}
+                />
                 <div>
                   <h1>{product.productName}</h1>
                   <h4>price: {product.price}</h4>
