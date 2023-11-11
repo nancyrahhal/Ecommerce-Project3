@@ -25,7 +25,7 @@ const Offers = () => {
     <div className="offers-container">
       <div className="offers-list">
         {products
-          .filter((product) => !product.itsnew)
+          .filter((product) => product.itsnew)
           .map((product, index) => (
             <div key={index} className="offer-item">
               <img src={product.image} alt={product.productName} />

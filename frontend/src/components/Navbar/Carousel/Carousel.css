@@ -1,6 +1,6 @@
 .image-carousel {
   position: relative;
-  height: 92vh;
+  height: 100vh;
   width: 100%;
   background-size: cover;
   background-size: contain;
@@ -45,7 +45,7 @@
 }
 
 .carousel-image {
-  height: 92vh;
+  height: 100vh;
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;

@@ -1,14 +1,29 @@
 import { toast } from "react-toastify";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const AddCategoryForm = () => {
   const [categoryName, setCategoryName] = useState("");
-  const [storeID, setStoreID] = useState(""); // Assuming you have a way to select the store
+  const [storeID, setStoreID] = useState("");
+  const [groceryStores, setGroceryStores] = useState([]);
+
+  // Fetch the list of grocery stores when the component mounts
+  useEffect(() => {
+    fetch("/groceries") // Update the endpoint as needed
+      .then((response) => response.json())
+      .then((data) => {
+        setGroceryStores(data);
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Failed to fetch grocery stores");
+      });
+  }, []);
 
   // Form Submit Handler
   const formSubmitHandler = (e) => {
     e.preventDefault();
     if (categoryName.trim() === "") return toast.error("Category Name is required");
+    if (!storeID) return toast.error("Please select a grocery store");
 
     // Send the form data to the server
     fetch("/category", {
@@ -52,15 +67,18 @@ const AddCategoryForm = () => {
             id="categoryName"
             placeholder="Enter Category Name"
           />
-          <label htmlFor="storeID">Store</label>
+          <label htmlFor="storeID">Grocery Store</label>
           <select
             value={storeID}
             onChange={(e) => setStoreID(e.target.value)}
             id="storeID"
           >
-            {/* Populate options based on available stores */}
-            <option value="">Select Store</option>
-            {/* Add store options here */}
+            <option value="">Select Grocery Store</option>
+            {groceryStores.map((store) => (
+              <option key={store._id} value={store._id}>
+                {store.StoreName}
+              </option>
+            ))}
           </select>
         </div>
         <button type="submit" className="add-category-btn">

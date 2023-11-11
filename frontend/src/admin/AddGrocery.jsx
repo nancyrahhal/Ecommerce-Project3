@@ -7,7 +7,8 @@ const AddGrocery = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [city, setCity] = useState("");
   const [area, setArea] = useState("");
-  const [groceryImage, setGroceryImage] = useState(null);
+  const [storeImage, setStoreImage] = useState(null);
+  const [location, setLocation] = useState(""); // Add Location state
 
   // Form Submit Handler
   const formSubmitHandler = (e) => {
@@ -16,6 +17,7 @@ const AddGrocery = () => {
     if (ownerName.trim() === "") return toast.error("Owner Name is required");
     if (phoneNumber.trim() === "") return toast.error("Phone Number is required");
     if (city.trim() === "") return toast.error("City is required");
+    if (location.trim() === "") return toast.error("Location is required"); // Check for Location
 
     // Send the form data to the server
     const formData = new FormData();
@@ -24,7 +26,8 @@ const AddGrocery = () => {
     formData.append("PhoneNumber", phoneNumber);
     formData.append("City", city);
     formData.append("Area", area);
-    formData.append("groceryImage", groceryImage);
+    formData.append("StoreImage", storeImage);
+    formData.append("Location", location); // Include Location in FormData
 
     fetch("/groceries", {
       method: "POST",
@@ -40,14 +43,15 @@ const AddGrocery = () => {
           setPhoneNumber("");
           setCity("");
           setArea("");
-          setGroceryImage(null);
+          setStoreImage(null);
+          setLocation(""); // Reset Location
           toast.success("Grocery added successfully");
         } else {
           toast.error("Failed to add grocery: " + data.error);
         }
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
         toast.error("Failed to add grocery");
       });
   };
@@ -81,6 +85,14 @@ const AddGrocery = () => {
             id="phoneNumber"
             placeholder="Enter Phone Number"
           />
+          <label htmlFor="location">Location</label>
+          <input
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            type="text"
+            id="location"
+            placeholder="Enter Location"
+          />
           <label htmlFor="city">City</label>
           <input
             value={city}
@@ -99,11 +111,12 @@ const AddGrocery = () => {
           />
           <label htmlFor="groceryImage">Grocery Image</label>
           <input
-            onChange={(e) => setGroceryImage(e.target.files[0])}
+            onChange={(e) => setStoreImage(e.target.files[0])}
             type="file"
             id="groceryImage"
             name="groceryImage"
           />
+  
         </div>
         <button type="submit" className="add-category-btn">
           Add

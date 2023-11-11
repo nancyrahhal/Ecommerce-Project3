@@ -10,10 +10,10 @@ const GroceryDetail = ({ grocery }) => {
         <img src={StoreImage} alt={StoreName} className="GroceryImages" />
         <div className="CardSecond">
           <div className="GroceryInformation">
-            <h2>{StoreName}</h2>
-            <p>
+            <h1>{StoreName}</h1>
+            <h3>
               <strong>{Location}</strong>
-            </p>
+              </h3>
           </div>
 
           <div>

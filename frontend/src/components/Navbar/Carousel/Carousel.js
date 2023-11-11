@@ -5,9 +5,9 @@ import './Carousel.css'; // Import the CSS file
 
 const ImageCarousel = () => {
   const images = [
-    'https://dealroup.com/wp-content/uploads/2020/05/Grocery-Offers.jpg',
-    'https://www.bigwhite.com/sites/default/files/2016-07/Winter-Services-Groceries-Food-2000x800px.jpg',
-    'https://www.zopmart.in/wp-content/uploads/2020/11/grocery-shopping-discount-banner.jpg',
+    'https://influencedigest.com/wp-content/uploads/2023/01/What-Makes-Grocery-Store-Advertising-More-Effective.jpg',
+    'https://mustsharenews.com/wp-content/uploads/2023/02/feature-image-1-32.jpg',
+    'https://thumbs.dreamstime.com/z/grocery-shopping-promotional-sale-banner-fast-shopping-cart-full-fresh-colorful-food-grocery-shopping-promotional-sale-banner-168812786.jpg',
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);

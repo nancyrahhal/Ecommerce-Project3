@@ -2,22 +2,22 @@ import "./footer.css"
 const footer =()=>{
     return(
         <footer path="/about">
-        <div class="footerTest">
+        <div className="footerTest">
   <div id="motto">
   Bringing Freshness to Your Doorstep: Nourishing Lives, One Ingredient at a Time
   </div>
   <div id="footerTest">
-    <div class="footerWrap">
-        <div class="toe">
+    <div className="footerWrap">
+        <div className="toe">
           <h3>Our Mission:</h3>
  <h5>What we wanted to achieve throughout this website was  helping customers search for what grocery,from any store they want,from anywhere they want </h5>
         </div>
-        <div class="toe">
+        <div className="toe">
           <h3>About</h3>
           <p>We are a beginner programming team, TEAM AMA,currently members of codi 10th cohort</p>
   
         </div>
-        <div class="toe">
+        <div className="toe">
           <h3>Follow</h3>
           <div id="social">
             <a id="fb" href="#" title="Facebook"></a>

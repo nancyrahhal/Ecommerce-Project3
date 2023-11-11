@@ -1,16 +1,53 @@
 import { toast } from "react-toastify";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const AddProducts = () => {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState(0);
   const [productImage, setProductImage] = useState(null);
-  const [categoryID, setCategoryID] = useState(""); // Assuming you have a way to select the category
-  const [storeID, setStoreID] = useState(""); // Assuming you have a way to select the store
+  const [categoryID, setCategoryID] = useState("");
+  const [storeID, setStoreID] = useState("");
   const [newprice, setNewPrice] = useState(0);
   const [itsnew, setItsNew] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [stores, setStores] = useState([]);
 
-  // Form Submit Handler
+  useEffect(() => {
+    // Fetch stores when the component mounts
+    fetchStores();
+  }, []);
+
+  const fetchStores = () => {
+    // Fetch stores from the server
+    fetch("/groceries")
+      .then((response) => response.json())
+      .then((data) => {
+        setStores(data);
+      })
+      .catch((error) => console.error("Error fetching stores:", error));
+  };
+
+  const fetchCategories = (selectedStoreID) => {
+    // Fetch categories based on the selected store
+    fetch(`/category?storeID=${selectedStoreID}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Fetched categories:", data);
+
+        // Update state with the new data structure
+        setCategories(data);
+
+        // ... (rest of your code)
+      })
+      .catch((error) => console.error("Error fetching categories:", error));
+  };
+
+  const handleStoreChange = (selectedStoreID) => {
+    setStoreID(selectedStoreID);
+    // Fetch categories for the selected store
+    fetchCategories(selectedStoreID);
+  };
+
   const formSubmitHandler = (e) => {
     e.preventDefault();
     if (productName.trim() === "") return toast.error("Product Name is required");
@@ -74,25 +111,31 @@ const AddProducts = () => {
             id="price"
             placeholder="Enter Price"
           />
+          <label htmlFor="storeID">Store</label>
+          <select
+            value={storeID}
+            onChange={(e) => handleStoreChange(e.target.value)}
+            id="storeID"
+          >
+            <option value="">Select Store</option>
+            {stores.map((store) => (
+              <option key={store._id} value={store._id}>
+                {store.StoreName}
+              </option>
+            ))}
+          </select>
           <label htmlFor="categoryID">Category</label>
           <select
             value={categoryID}
             onChange={(e) => setCategoryID(e.target.value)}
             id="categoryID"
           >
-            {/* Populate options based on available categories */}
             <option value="">Select Category</option>
-            {/* Add category options here */}
-          </select>
-          <label htmlFor="storeID">Store</label>
-          <select
-            value={storeID}
-            onChange={(e) => setStoreID(e.target.value)}
-            id="storeID"
-          >
-            {/* Populate options based on available stores */}
-            <option value="">Select Store</option>
-            {/* Add store options here */}
+            {categories.map((category) => (
+              <option key={category._id} value={category._id}>
+                {category.categoryName}
+              </option>
+            ))}
           </select>
           <label htmlFor="productImage">Product Image</label>
           <input
@@ -109,7 +152,7 @@ const AddProducts = () => {
             id="newprice"
             placeholder="Enter New Price"
           />
-          <label htmlFor="itsnew">Is it new?</label>
+          <label htmlFor="itsnew">Want to add an offer?</label>
           <input
             type="checkbox"
             checked={itsnew}

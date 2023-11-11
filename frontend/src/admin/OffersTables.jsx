@@ -1,45 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./admin-table.css";
 import AdminSidebar from "./AdminSidbar";
 import { Link } from "react-router-dom";
 import offerpic from "../admin/offerpic.png";
-import { useEffect, useState } from "react";
 import axios from "axios";
 import ViewOffer from "./ViewOffer";
 
 const OffersTables = () => {
-  const [offer, setOffer] = useState([]);
-  const [selectedOffer, setSelectedOffer] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     axios
-      .get("/offers")
+      .get("/product")
       .then((response) => {
-        setOffer(response.data);
+        // Filter products to display only those with itsnew set to true
+        const newProducts = response.data.filter((product) => product.itsnew);
+        setProducts(newProducts);
       })
       .catch((error) => {
-        console.error("There was an error in OFFER view", error);
+        console.error("There was an error in fetching products", error);
       });
   }, []);
 
-  const deleteOffer = (id) => {
+  const deleteProduct = (id) => {
     axios
-      .delete(`/offers/${id}`)
+      .delete(`/product/${id}`)
       .then((response) => {
         console.log(response.data);
-        setOffer(offer.filter((offer) => offer._id !== id));
+        // Update the product's itsnew property to false
+        setProducts((prevProducts) =>
+          prevProducts.map((product) =>
+            product._id === id ? { ...product, itsnew: false } : product
+          )
+        );
       })
       .catch((error) => {
-        console.error("There was an error in deleting", error);
+        console.error("There was an error in deleting product", error);
       });
   };
-  console.log(offer)
 
   return (
     <section className="table-container">
       <AdminSidebar />
       <div className="table-wrapper">
-        <h1 className="table-title">Offers</h1>
+        <h1 className="table-title">Products with Offers</h1>
         <table className="table">
           <thead>
             <tr>
@@ -52,36 +57,34 @@ const OffersTables = () => {
             </tr>
           </thead>
           <tbody>
-            {offer.map((offer, index) => (
+            {products.map((product, index) => (
               <tr key={index + 1}>
-                <td>{offer.productID}</td>
+                <td>{product._id}</td>
                 <td>
                   <div className="table-image">
                     <img className="table-offer-image" src={offerpic} alt="" />
-                    <span className="table-username">offerstable</span>
+                    <span className="table-username">{product.productName}</span>
                   </div>
                 </td>
-                <td>Stor Name</td>
-                <td>Old Price</td>
-                <td>New Price</td>
+                <td>{product.storeID}</td>
+                <td>{product.price}</td>
+                <td>{product.newprice}</td>
                 <td>
                   <div className="table-button-group">
-                  <button onClick={() => setSelectedOffer(offer)}>View Offer</button>
-
-                    <button onClick={() => deleteOffer(offer._id)}>
+                    <button onClick={() => setSelectedProduct(product)}>
+                      View Offer
+                    </button>
+                    <button onClick={() => deleteProduct(product._id)}>
                       Delete Offer
                     </button>
                   </div>
                 </td>
-                <div className="table-button-group"></div>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      {selectedOffer && (
-      <ViewOffer grocery={setSelectedOffer} />
-    )}
+      {selectedProduct && <ViewOffer product={selectedProduct} />}
     </section>
   );
 };
