@@ -13,7 +13,7 @@ const AdminMain = () => {
   const [category,setCategory]=useState([])
 
   useEffect(()=>{
-    axios.get('/product')
+    axios.get(`${process.env.REACT_APP_API_URL}/product`)
       .then(response => {
         setProducts(response.data);
       })
@@ -23,7 +23,7 @@ const AdminMain = () => {
   },[])
 
   useEffect(() => {
-    axios.get('/groceries')
+    axios.get(process.env.REACT_APP_API_URL+'/groceries')
       .then(response => {
         setGroceries(response.data);
       })
@@ -33,7 +33,7 @@ const AdminMain = () => {
    }, []);
 
    useEffect(() => {
-    axios.get('/offers')
+    axios.get(process.env.REACT_APP_API_URL+'/offers')
       .then(response => {
         setOffer(response.data);
       })
@@ -43,7 +43,7 @@ const AdminMain = () => {
    }, []);
 
    useEffect(() => {
-    axios.get('/category')
+    axios.get(process.env.REACT_APP_API_URL+'/category')
       .then(response => {
         setCategory(response.data);
       })

@@ -4,6 +4,8 @@ import axios from "axios";
 import "./StoreDetails.css";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 
+import { useQuery } from "react-query";
+
 import fruits from "../../../Images/strawberry.png";
 import vegetables from "../../../Images/vegetable.png";
 import snack from "../../../Images/snack.png";
@@ -14,28 +16,45 @@ import drinks from "../../../Images/drink.png";
 import bread from "../../../Images/white-bread.png";
 
 const StoreDetails = () => {
-  const [storeDetails, setStoreDetails] = useState(null);
+  const [categoriesArray, setCategoriesArray] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [startIndex, setStartIndex] = useState(0);
   const categoriesToShow = 4;
 
   const params = useParams();
-  console.log("params.storeName:", params.storeName);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`/groceries/${params.storeName}`);
-        setStoreDetails(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  console.log(process.env);
 
-    fetchData();
-  }, [params.storeName]);
+  const {
+    isLoading,
+    error,
+    data: storeDetails,
+  } = useQuery({
+    queryFn: () => {
+      return axios
+        .get(`${process.env.REACT_APP_API_URL}/groceries/${params.storeName}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        })
+        .then((res) => {
+          setCategoriesArray(res?.data?.categories);
+
+          // set first category as selected to show the products list
+          if (res?.data?.categories?.length) {
+            setSelectedCategory(res?.data?.categories[0]);
+          }
+
+          return res.data;
+        })
+        .then((res) => res)
+        .catch((err) => console.log(err));
+    },
+  });
 
   const toggleCategory = (category) => {
+    console.log(category);
     if (selectedCategory === category) {
       setSelectedCategory(null);
     } else {
@@ -81,21 +100,9 @@ const StoreDetails = () => {
     }
   };
 
-  console.log("storeDetails:", storeDetails);
-
-  if (!storeDetails) {
+  if (isLoading) {
     return <p>Loading...</p>;
   }
-
-  console.log("storeDetails.categories:", storeDetails.categories);
-
-  const categoriesArray = Array.isArray(storeDetails.categories)
-    ? storeDetails.categories
-    : storeDetails.categories
-    ? [storeDetails.categories] // Ensure it's an array
-    : [];
-
-  console.log("Categories array:", categoriesArray);
 
   return (
     <div>
@@ -140,9 +147,8 @@ const StoreDetails = () => {
           <FaArrowAltCircleLeft className="arrow" />
         </div>
 
-        {categoriesArray
-          .slice(startIndex, startIndex + categoriesToShow)
-          .map((category) => (
+        {categoriesArray &&
+          categoriesArray.map((category) => (
             <div key={category._id} className="category">
               <img
                 className="catimg"
@@ -159,12 +165,8 @@ const StoreDetails = () => {
       </div>
 
       <div className="products">
-        {categoriesArray
-          .flatMap((category) => category.products || []) // Ensure products is an array
-          .filter((product) =>
-            selectedCategory ? product.category === selectedCategory : true
-          )
-          .map((product) => (
+        {selectedCategory &&
+          selectedCategory.products?.map((product) => (
             <div key={product._id} className="product">
               <div className="productcard">
                 <img

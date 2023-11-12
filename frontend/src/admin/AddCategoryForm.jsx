@@ -8,7 +8,7 @@ const AddCategoryForm = () => {
 
   // Fetch the list of grocery stores when the component mounts
   useEffect(() => {
-    fetch("/groceries") // Update the endpoint as needed
+    fetch(process.env.REACT_APP_API_URL+"/groceries") // Update the endpoint as needed
       .then((response) => response.json())
       .then((data) => {
         setGroceryStores(data);
@@ -26,7 +26,7 @@ const AddCategoryForm = () => {
     if (!storeID) return toast.error("Please select a grocery store");
 
     // Send the form data to the server
-    fetch("/category", {
+    fetch(process.env.REACT_APP_API_URL+"/category", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

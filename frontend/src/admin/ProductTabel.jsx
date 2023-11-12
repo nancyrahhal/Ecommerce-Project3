@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 import AdminSidbar from "./AdminSidbar";
-import './ProductTable.css';
+import EditProduct from "./EditProduct";
+import "./ProductTable.css";
 
 const ProductTable = () => {
   const [products, setProducts] = useState([]);
@@ -10,12 +11,16 @@ const ProductTable = () => {
   const [categoryDetails, setCategoryDetails] = useState({});
 
   useEffect(() => {
+    console.log("GG");
+  }, [selectedProductEdit]);
+
+  useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('/product');
+        const response = await axios.get("/product");
         setProducts(response.data);
       } catch (error) {
-        console.error('There was an error in retrieving product data', error);
+        console.error("There was an error in retrieving product data", error);
       }
     };
 
@@ -27,7 +32,7 @@ const ProductTable = () => {
           [storeId]: response.data,
         }));
       } catch (error) {
-        console.error('Error fetching store details:', error);
+        console.error("Error fetching store details:", error);
       }
     };
 
@@ -39,7 +44,7 @@ const ProductTable = () => {
           [categoryId]: response.data,
         }));
       } catch (error) {
-        console.error('Error fetching category details:', error);
+        console.error("Error fetching category details:", error);
       }
     };
 
@@ -55,53 +60,35 @@ const ProductTable = () => {
   const deleteProduct = async (id) => {
     try {
       await axios.delete(`/product/${id}`);
-      setProducts(products.filter(product => product._id !== id));
+      setProducts(products.filter((product) => product._id !== id));
     } catch (error) {
-      console.error('There was an error in deleting the product', error);
+      console.error("There was an error in deleting the product", error);
     }
   };
 
   const editProduct = (id) => {
-    axios.get(`/product/${id}`)
-      .then(response => {
+    axios
+      .get(process.env.REACT_APP_API_URL + `/product/${id}`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
         setSelectedProductEdit(response.data);
       })
-      .catch(error => {
-        console.error('There was an error in editing the product', error);
+      .catch((error) => {
+        console.error("There was an error in editing the product", error);
       });
-  };
-
-  const renderStoreDetails = (storeId) => {
-    const store = storeDetails[storeId];
-    if (store) {
-      return (
-        <>
-          <p>Store Name: {store.StoreName}</p>
-          <p>Store ID: {store._id}</p>
-        </>
-      );
-    } else {
-      return <p>Store details not available</p>;
-    }
-  };
-
-  const renderCategoryDetails = (categoryId) => {
-    const category = categoryDetails[categoryId];
-    if (category) {
-      return (
-        <>
-          <p>Category Name: {category.CategoryName}</p>
-          <p>Category ID: {category._id}</p>
-        </>
-      );
-    } else {
-      return <p>Category details not available</p>;
-    }
   };
 
   return (
     <section className="table-container">
-      <AdminSidbar/>
+      <EditProduct
+        product={selectedProductEdit}
+        setSelectedProductEdit={setSelectedProductEdit}
+      />
+      <AdminSidbar />
       <div className="table-wrapper">
         <h1 className="table-title">Products</h1>
         <table className="table">
@@ -120,17 +107,25 @@ const ProductTable = () => {
               <tr key={index}>
                 <td>{product.productName}</td>
                 <td>{product.price}</td>
-                <td>{renderCategoryDetails(product.categoryID)}</td>
-                <td>{renderStoreDetails(product.storeID)}</td>
+                <td> {product.categoryData.categoryName} </td>
+                <td> {product.storeData.StoreName} </td>
                 <td>
                   <div className="table-image">
-                    <img className="table-product-image" src={product.image} alt="" />
+                    <img
+                      className="table-product-image"
+                      src={product.image}
+                      alt=""
+                    />
                   </div>
                 </td>
                 <td>
                   <div className="table-button-group">
-                    <button onClick={() => editProduct(product._id)}>Edit Product</button>
-                    <button onClick={() => deleteProduct(product._id)}>Delete Product</button>
+                    <button onClick={() => editProduct(product._id)}>
+                      Edit Product
+                    </button>
+                    <button onClick={() => deleteProduct(product._id)}>
+                      Delete Product
+                    </button>
                   </div>
                 </td>
               </tr>

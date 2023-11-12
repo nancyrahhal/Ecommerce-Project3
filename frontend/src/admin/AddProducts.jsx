@@ -19,7 +19,7 @@ const AddProducts = () => {
 
   const fetchStores = () => {
     // Fetch stores from the server
-    fetch("/groceries")
+    fetch(process.env.REACT_APP_API_URL+"/groceries")
       .then((response) => response.json())
       .then((data) => {
         setStores(data);
@@ -29,7 +29,7 @@ const AddProducts = () => {
 
   const fetchCategories = (selectedStoreID) => {
     // Fetch categories based on the selected store
-    fetch(`/category?storeID=${selectedStoreID}`)
+    fetch(process.env.REACT_APP_API_URL+`/category?storeID=${selectedStoreID}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched categories:", data);
@@ -63,7 +63,7 @@ const AddProducts = () => {
     formData.append("newprice", newprice);
     formData.append("itsnew", itsnew);
 
-    fetch("/product", {
+    fetch(process.env.REACT_APP_API_URL+"/product", {
       method: "POST",
       body: formData,
     })

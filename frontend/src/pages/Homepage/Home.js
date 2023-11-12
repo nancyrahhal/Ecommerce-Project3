@@ -11,7 +11,9 @@ const Home = () => {
   useEffect(() => {
     const fetchGroceries = async () => {
       try {
-        const response = await fetch("/groceries");
+        const response = await fetch(
+          process.env.REACT_APP_API_URL + "/groceries"
+        );
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

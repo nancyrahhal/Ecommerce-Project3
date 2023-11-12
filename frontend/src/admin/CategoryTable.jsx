@@ -7,7 +7,7 @@ const CategoryTable = () => {
 
   useEffect(() => {
     // Fetch categories with store names from the server
-    fetch("/category")
+    fetch(process.env.REACT_APP_API_URL+"/category")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -23,7 +23,7 @@ const CategoryTable = () => {
 
   const handleDelete = (categoryId) => {
     // Make a DELETE request to your server
-    fetch(`/category/${categoryId}`, {
+    fetch(process.env.REACT_APP_API_URL+`/category/${categoryId}`, {
       method: 'DELETE',
     })
       .then((response) => {

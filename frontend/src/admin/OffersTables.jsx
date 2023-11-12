@@ -12,7 +12,7 @@ const OffersTables = () => {
 
   useEffect(() => {
     axios
-      .get("/product")
+      .get(process.env.REACT_APP_API_URL+"/product")
       .then((response) => {
         // Filter products to display only those with itsnew set to true
         const newProducts = response.data.filter((product) => product.itsnew);
@@ -25,7 +25,7 @@ const OffersTables = () => {
 
   const deleteProduct = (id) => {
     axios
-      .delete(`/product/${id}`)
+      .delete(`${process.env.REACT_APP_API_URL}/product/${id}`)
       .then((response) => {
         console.log(response.data);
         // Update the product's itsnew property to false

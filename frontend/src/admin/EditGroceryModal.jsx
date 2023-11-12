@@ -1,6 +1,5 @@
 // src/components/EditGroceryModal.js
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const EditGroceryModal = ({ grocery, onClose, onUpdate }) => {
   const [editedGrocery, setEditedGrocery] = useState(grocery);

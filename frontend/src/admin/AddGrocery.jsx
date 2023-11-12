@@ -29,7 +29,7 @@ const AddGrocery = () => {
     formData.append("StoreImage", storeImage);
     formData.append("Location", location); // Include Location in FormData
 
-    fetch("/groceries", {
+    fetch(process.env.REACT_APP_API_URL+"/groceries", {
       method: "POST",
       body: formData,
     })

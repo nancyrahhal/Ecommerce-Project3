@@ -11,7 +11,7 @@ const GroceryTable = () => {
   const [selectedGroceryEdit, setSelectedGroceryEdit] = useState(null);
 
   useEffect(() => {
-    axios.get('/groceries')
+    axios.get(process.env.REACT_APP_API_URL+'/groceries')
       .then(response => {
         setGroceries(response.data);
       })
@@ -21,7 +21,7 @@ const GroceryTable = () => {
   }, []);
 
   const deleteGrocery = (id) => {
-    axios.delete(`/groceries/${id}`)
+    axios.delete(`${process.env.REACT_APP_API_URL}/groceries/${id}`)
       .then(response => {
         console.log(response.data);
         setGroceries(groceries.filter(grocery => grocery._id !== id));
@@ -32,7 +32,7 @@ const GroceryTable = () => {
   };
 
   const editGrocery = (id) => {
-    axios.get(`/groceries/${id}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/groceries/${id}`)
       .then(response => {
         setSelectedGroceryEdit(response.data);
       })
@@ -42,7 +42,7 @@ const GroceryTable = () => {
   };
 
   const updateGrocery = (updatedGrocery) => {
-    axios.patch(`/groceries/${updatedGrocery._id}`, updatedGrocery)
+    axios.patch(`${process.env.REACT_APP_API_URL}/groceries/${updatedGrocery._id}`, updatedGrocery)
       .then(response => {
         console.log(response.data);
         setGroceries(prevGroceries =>
