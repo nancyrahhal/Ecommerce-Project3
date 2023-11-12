@@ -51,6 +51,7 @@ const StoreDetails = () => {
         .then((res) => res)
         .catch((err) => console.log(err));
     },
+    refetchOnWindowFocus: false,
   });
 
   const toggleCategory = (category) => {
